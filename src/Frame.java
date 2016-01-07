@@ -7,9 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+@SuppressWarnings("serial")
 class Frame extends JFrame {
-
-    private GameManager man;
 
     public Frame() {
 	super("2048");
@@ -20,8 +19,9 @@ class Frame extends JFrame {
 	JOptionPane.showMessageDialog(null, joptionPane);
 	int size = (int) rowSelector.getValue();
 	add(new Background(size));
-	man = new GameManager(size);
+	new GameManager(size);
 	setVisible(true);
+	setResizable(false);
 	setLocation(200, 200);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	pack();

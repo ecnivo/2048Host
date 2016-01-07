@@ -7,12 +7,14 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 class Background extends JPanel {
 
     Image background;
     int sides;
 
     public Background(int sides) {
+	setLayout(null);
 	this.sides = sides;
 	try {
 	    background = ImageIO.read(new File("background.png")).getScaledInstance((int) getSize().getWidth(), (int) getSize().getHeight(), Image.SCALE_SMOOTH);
