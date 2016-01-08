@@ -8,9 +8,11 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
-class Frame extends JFrame {
+class TwentyFortyEight extends JFrame {
 
-    public Frame() {
+    private NumberTile[][] grid;
+
+    public TwentyFortyEight() {
 	super("2048");
 	JSpinner rowSelector = new JSpinner(new SpinnerNumberModel(4, 0, 16, 1));
 	JPanel joptionPane = new JPanel(new GridLayout(2, 1, 1, 2));
@@ -18,16 +20,21 @@ class Frame extends JFrame {
 	joptionPane.add(rowSelector);
 	JOptionPane.showMessageDialog(null, joptionPane);
 	int size = (int) rowSelector.getValue();
-	add(new Background(size));
-	new GameManager(size);
+	grid = new NumberTile[size][size];
+	add(new GameManager(this));
 	setVisible(true);
 	setResizable(false);
 	setLocation(200, 200);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setResizable(true);
 	pack();
     }
 
     public static void main(String[] args) {
-	new Frame();
+	new TwentyFortyEight();
+    }
+
+    public NumberTile[][] getGrid() {
+	return grid;
     }
 }
