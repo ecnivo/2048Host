@@ -20,7 +20,8 @@ public class GameManager extends JPanel {
 	interpreter = new PythonInterpreter();
 	setLayout(null);
 
-	// TODO add two 2's or 4's anywhere
+	new NumberTile(twfe, 2);
+	new NumberTile(twfe, ((int) (Math.random() * 2)) * 2);
 
 	boolean running = true;
 	while (running) {
@@ -31,7 +32,7 @@ public class GameManager extends JPanel {
 	    int direction = (int) output.__tojava__(int.class);
 	    System.out.println("[INFO] " + direction + " was chosen");
 
-	    // TODO collapse/combine tiles
+	    // TODO move tiles so there is no more white space
 	    switch (direction) {
 	    case UP:
 		for (int col = 0; col < twfe.getGrid().length; col++) {
@@ -49,6 +50,23 @@ public class GameManager extends JPanel {
 				current.doubleValue();
 				twfe.getGrid()[nextRow][col] = null;
 				row = nextRow;
+			    }
+			}
+		    }
+		}
+		for (int col = 0; col < twfe.getGrid().length; col++) {
+		    for (int row = 0; row < twfe.getGrid().length; row++) {
+			if (twfe.getGrid()[row][col] == null) {
+			    int nextRow = row + 1;
+			    while (nextRow < twfe.getGrid().length && twfe.getGrid()[nextRow][col] == null) {
+				nextRow++;
+			    }
+			    NumberTile nextItem = twfe.getGrid()[nextRow][col];
+			    if (nextItem != null) {
+				twfe.getGrid()[row][col] = nextItem;
+				twfe.getGrid()[nextRow][col] = null;
+			    } else {
+				break;
 			    }
 			}
 		    }
@@ -75,6 +93,23 @@ public class GameManager extends JPanel {
 			}
 		    }
 		}
+		for (NumberTile[] row : twfe.getGrid()) {
+		    for (int col = row.length - 1; col >= 0; col--) {
+			if (row[col] == null) {
+			    int nextCol = col - 1;
+			    while (nextCol >= 0 && row[nextCol] == null) {
+				nextCol--;
+			    }
+			    NumberTile nextItem = row[nextCol];
+			    if (nextItem != null) {
+				row[col] = nextItem;
+				row[nextCol] = null;
+			    } else {
+				break;
+			    }
+			}
+		    }
+		}
 		break;
 
 	    case DOWN:
@@ -93,6 +128,23 @@ public class GameManager extends JPanel {
 				current.doubleValue();
 				twfe.getGrid()[nextRow][col] = null;
 				row = nextRow;
+			    }
+			}
+		    }
+		}
+		for (int col = 0; col < twfe.getGrid().length; col++) {
+		    for (int row = twfe.getGrid().length; row >= 0; row--) {
+			if (twfe.getGrid()[row][col] == null) {
+			    int nextRow = row - 1;
+			    while (nextRow >= 0 && twfe.getGrid()[nextRow][col] == null) {
+				nextRow--;
+			    }
+			    NumberTile nextItem = twfe.getGrid()[nextRow][col];
+			    if (nextItem != null) {
+				twfe.getGrid()[row][col] = nextItem;
+				twfe.getGrid()[nextRow][col] = null;
+			    } else {
+				break;
 			    }
 			}
 		    }
@@ -119,10 +171,27 @@ public class GameManager extends JPanel {
 			}
 		    }
 		}
+		for (NumberTile[] row : twfe.getGrid()) {
+		    for (int col = 0; col < row.length; col++) {
+			if (row[col] == null) {
+			    int nextCol = col + 1;
+			    while (nextCol < row.length && row[nextCol] == null) {
+				nextCol++;
+			    }
+			    NumberTile nextItem = row[nextCol];
+			    if (nextItem != null) {
+				row[col] = nextItem;
+				row[nextCol] = null;
+			    } else {
+				break;
+			    }
+			}
+		    }
+		}
 		break;
 	    }
 
-	    NumberTile newTile = new NumberTile(twfe);
+	    new NumberTile(twfe);
 
 	    // TODO animate
 

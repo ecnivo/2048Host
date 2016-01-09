@@ -15,7 +15,7 @@ class TwentyFortyEight extends JFrame {
 
     public TwentyFortyEight() {
 	super("2048");
-	JSpinner rowSelector = new JSpinner(new SpinnerNumberModel(4, 0, 16, 1));
+	JSpinner rowSelector = new JSpinner(new SpinnerNumberModel(4, 0, 16, 3));
 	JPanel joptionPane = new JPanel(new GridLayout(2, 1, 1, 2));
 	joptionPane.add(new JLabel("Select the number of rows/columns"));
 	joptionPane.add(rowSelector);
