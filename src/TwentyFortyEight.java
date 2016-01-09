@@ -11,6 +11,7 @@ import javax.swing.SpinnerNumberModel;
 class TwentyFortyEight extends JFrame {
 
     private NumberTile[][] grid;
+    private int target;
 
     public TwentyFortyEight() {
 	super("2048");
@@ -21,6 +22,7 @@ class TwentyFortyEight extends JFrame {
 	JOptionPane.showMessageDialog(null, joptionPane);
 	int size = (int) rowSelector.getValue();
 	grid = new NumberTile[size][size];
+	target = (int) Math.pow(2, 7 + size);
 	add(new GameManager(this));
 	setVisible(true);
 	setResizable(false);
@@ -36,5 +38,9 @@ class TwentyFortyEight extends JFrame {
 
     public NumberTile[][] getGrid() {
 	return grid;
+    }
+
+    public int getTarget() {
+	return target;
     }
 }

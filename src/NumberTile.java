@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 import javax.swing.JLabel;
 
 import org.python.core.PyInteger;
@@ -6,50 +8,70 @@ import org.python.core.PyInteger;
 public class NumberTile extends JLabel {
 
     TwentyFortyEight twfe;
-    int amount;
-    int row, col;
-    int x, y;
+    int value;
+//    int row, col;
+    Point location;
 
     private static final double INCREMENT_AMOUNT = 2;
 
-    public NumberTile(TwentyFortyEight twfe, int row, int column) {
-	amount = 0;
+    public NumberTile(TwentyFortyEight twfe) {
+	value = 0;
 	this.twfe = twfe;
-	this.row = row;
-	this.col = column;
-
+	init();
     }
 
-    public void doubleAmount() {
-	amount *= 2;
+    public NumberTile(TwentyFortyEight twfe, int value) {
+	this.value = value;
+	this.twfe = twfe;
+	init();
     }
 
-    public int getAmount() {
-	return amount;
+    private void init() {
+	int tempRow = (int) (Math.random() * twfe.getGrid().length);
+	int tempCol = (int) (Math.random() * twfe.getGrid().length);
+	while (twfe.getGrid()[tempRow][tempCol] != null) {
+	    tempRow = (int) (Math.random() * twfe.getGrid().length);
+	    tempCol = (int) (Math.random() * twfe.getGrid().length);
+	}
+//	row = tempRow;
+//	col = tempCol;
+	twfe.getGrid()[tempRow][tempCol] = this;
+    }
+
+    public boolean doubleValue() {
+	value *= 2;
+	if (value >= twfe.getTarget()) {
+	    return true;
+	}
+	return false;
+    }
+
+    public int getValue() {
+	return value;
     }
 
     public PyInteger getPyInt() {
-	return new PyInteger(amount);
+	return new PyInteger(value);
     }
 
     public void incrementUp() {
-	y -= INCREMENT_AMOUNT;
+	location.y -= INCREMENT_AMOUNT;
     }
 
     public void incrementDown() {
-	y += INCREMENT_AMOUNT;
+	location.y += INCREMENT_AMOUNT;
     }
 
     public void incrementLeft() {
-	x -= INCREMENT_AMOUNT;
+	location.x -= INCREMENT_AMOUNT;
     }
 
     public void incrementRight() {
-	x += INCREMENT_AMOUNT;
+	location.x += INCREMENT_AMOUNT;
     }
 
-    public void setNewPos(int row, int col) {
-	this.row = row;
-	this.col = col;
-    }
+//    public void setNewPos(int row, int col) {
+//	this.row = row;
+//	this.col = col;
+//    }
 }
