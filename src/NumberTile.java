@@ -12,8 +12,6 @@ public class NumberTile extends JLabel {
 //    int row, col;
     Point location;
 
-    private static final double INCREMENT_AMOUNT = 2;
-
     public NumberTile(TwentyFortyEight twfe) {
 	value = 0;
 	this.twfe = twfe;
@@ -54,20 +52,20 @@ public class NumberTile extends JLabel {
 	return new PyInteger(value);
     }
 
-    public void incrementUp() {
-	location.y -= INCREMENT_AMOUNT;
+    public void incrementUp(int amount) {
+	location.y -= amount;
     }
 
-    public void incrementDown() {
-	location.y += INCREMENT_AMOUNT;
+    public void incrementDown(int amount) {
+	location.y += amount;
     }
 
-    public void incrementLeft() {
-	location.x -= INCREMENT_AMOUNT;
+    public void incrementLeft(int amount) {
+	location.x -= amount;
     }
 
-    public void incrementRight() {
-	location.x += INCREMENT_AMOUNT;
+    public void incrementRight(int amount) {
+	location.x += amount;
     }
 
 //    public void setNewPos(int row, int col) {

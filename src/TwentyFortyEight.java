@@ -1,4 +1,7 @@
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,10 +15,11 @@ class TwentyFortyEight extends JFrame {
 
     private NumberTile[][] grid;
     private int target;
+    GameManager manager;
 
     public TwentyFortyEight() {
 	super("2048");
-	JSpinner rowSelector = new JSpinner(new SpinnerNumberModel(4, 0, 16, 3));
+	JSpinner rowSelector = new JSpinner(new SpinnerNumberModel(4, 3, 16, 1));
 	JPanel joptionPane = new JPanel(new GridLayout(2, 1, 1, 2));
 	joptionPane.add(new JLabel("Select the number of rows/columns"));
 	joptionPane.add(rowSelector);
@@ -23,12 +27,38 @@ class TwentyFortyEight extends JFrame {
 	int size = (int) rowSelector.getValue();
 	grid = new NumberTile[size][size];
 	target = (int) Math.pow(2, 7 + size);
-	add(new GameManager(this));
+	manager = new GameManager(this);
+	add(manager);
 	setVisible(true);
 	setResizable(false);
 	setLocation(200, 200);
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	setResizable(true);
+	addComponentListener(new ComponentListener() {
+
+	    @Override
+	    public void componentShown(ComponentEvent e) {
+		// nothing
+	    }
+
+	    @Override
+	    public void componentResized(ComponentEvent e) {
+		if (TwentyFortyEight.this.getWidth() == TwentyFortyEight.this.getHeight())
+		    return;
+		TwentyFortyEight.this.setSize(new Dimension(TwentyFortyEight.this.getWidth(), TwentyFortyEight.this.getWidth() + 23));
+		manager.repaint();
+	    }
+
+	    @Override
+	    public void componentMoved(ComponentEvent e) {
+		// nothing
+	    }
+
+	    @Override
+	    public void componentHidden(ComponentEvent e) {
+		// nothing
+	    }
+	});
 	pack();
     }
 
