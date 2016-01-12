@@ -56,6 +56,7 @@ class TwentyFortyEight extends JFrame {
 	    }
 
 	    @Override
+	    
 	    public void componentMoved(ComponentEvent e) {
 		// nothing
 	    }

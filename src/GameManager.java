@@ -326,7 +326,7 @@ public class GameManager extends JPanel {
 
 		    // int x = (int) ((col + 0.05) * getTileSize());
 		    // int y = (int) ((row + 0.05) * getTileSize());
-		    g.fillRect((int) tile.getPosition().getX(), (int) tile.getPosition().getY(), (int) (tileSize * 0.9), (int) (tileSize * 0.9));
+		    g.fillRect((int) Math.round(tile.getPosition().getX()), (int) Math.round(tile.getPosition().getY()), (int) (tileSize * 0.9), (int) (tileSize * 0.9));
 		    g.setColor(Color.WHITE);
 		    g.setFont(new Font("Consolas", Font.BOLD, 16));
 		    g.drawString(String.valueOf(tile.getValue()), (int) (tile.getPosition().getX() + (tileSize * 0.1)), (int) (tile.getPosition().getY() + tileSize - (tileSize * 0.1)));
@@ -378,8 +378,8 @@ public class GameManager extends JPanel {
 	    this.axis = axis;
 	}
 
-	public int getIncrementAmount() {
-	    return (int) Math.round((start - end) * tileSize / ANIM_STEPS);
+	public double getIncrementAmount() {
+	    return (start - end) * tileSize / ANIM_STEPS;
 	}
 
 	public NumberTile getTile() {

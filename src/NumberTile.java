@@ -55,11 +55,11 @@ public class NumberTile extends JLabel {
 	return new PyInteger(value);
     }
 
-    public void incrementUp(int amount) {
+    public void incrementUp(double amount) {
 	position.y -= amount;
     }
 
-    public void incrementLeft(int amount) {
+    public void incrementLeft(double amount) {
 	position.x -= amount;
     }
 
