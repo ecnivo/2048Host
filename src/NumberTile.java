@@ -7,13 +7,12 @@ import org.python.core.PyInteger;
 @SuppressWarnings("serial")
 public class NumberTile extends JLabel {
 
-    TwentyFortyEight twfe;
-    int value;
-//    int row, col;
-    Point location;
+    private TwentyFortyEight twfe;
+    private int value;
+    private Point position;
 
     public NumberTile(TwentyFortyEight twfe) {
-	value = 0;
+	value = 2;
 	this.twfe = twfe;
 	init();
     }
@@ -25,19 +24,23 @@ public class NumberTile extends JLabel {
     }
 
     private void init() {
-	int tempRow = (int) (Math.random() * twfe.getGrid().length);
-	int tempCol = (int) (Math.random() * twfe.getGrid().length);
-	while (twfe.getGrid()[tempRow][tempCol] != null) {
-	    tempRow = (int) (Math.random() * twfe.getGrid().length);
-	    tempCol = (int) (Math.random() * twfe.getGrid().length);
+	int row = (int) (Math.random() * twfe.getGrid().length);
+	int col = (int) (Math.random() * twfe.getGrid().length);
+	while (twfe.getGrid()[row][col] != null) {
+	    row = (int) (Math.random() * twfe.getGrid().length);
+	    col = (int) (Math.random() * twfe.getGrid().length);
 	}
-//	row = tempRow;
-//	col = tempCol;
-	twfe.getGrid()[tempRow][tempCol] = this;
+	twfe.getGrid()[row][col] = this;
+
+	position = new Point();
+	setPosition(new Point((int) ((col + 0.05) * twfe.getManager().tileSize), (int) ((row + 0.05) * twfe.getManager().tileSize)));
     }
 
     public boolean doubleValue() {
 	value *= 2;
+	if (value == 0) {
+	    System.err.println("zero!");
+	}
 	if (value >= twfe.getTarget()) {
 	    return true;
 	}
@@ -53,23 +56,18 @@ public class NumberTile extends JLabel {
     }
 
     public void incrementUp(int amount) {
-	location.y -= amount;
-    }
-
-    public void incrementDown(int amount) {
-	location.y += amount;
+	position.y -= amount;
     }
 
     public void incrementLeft(int amount) {
-	location.x -= amount;
+	position.x -= amount;
     }
 
-    public void incrementRight(int amount) {
-	location.x += amount;
+    public void setPosition(Point newLocation) {
+	position = newLocation;
     }
 
-//    public void setNewPos(int row, int col) {
-//	this.row = row;
-//	this.col = col;
-//    }
+    public Point getPosition() {
+	return position;
+    }
 }

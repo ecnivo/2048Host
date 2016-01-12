@@ -25,9 +25,14 @@ class TwentyFortyEight extends JFrame {
 	joptionPane.add(rowSelector);
 	JOptionPane.showMessageDialog(null, joptionPane);
 	int size = (int) rowSelector.getValue();
+	if (size < 3) {
+	    size = 3;
+	}
 	grid = new NumberTile[size][size];
 	target = (int) Math.pow(2, 7 + size);
 	manager = new GameManager(this);
+	manager.addStartingTiles();
+	manager.repaint();
 	add(manager);
 	setVisible(true);
 	setResizable(false);
@@ -46,6 +51,7 @@ class TwentyFortyEight extends JFrame {
 		if (TwentyFortyEight.this.getWidth() == TwentyFortyEight.this.getHeight())
 		    return;
 		TwentyFortyEight.this.setSize(new Dimension(TwentyFortyEight.this.getWidth(), TwentyFortyEight.this.getWidth() + 23));
+		manager.updateTileSize();
 		manager.repaint();
 	    }
 
@@ -59,7 +65,12 @@ class TwentyFortyEight extends JFrame {
 		// nothing
 	    }
 	});
-	pack();
+	setSize(320, 343);
+	// pack();
+    }
+
+    public GameManager getManager() {
+	return manager;
     }
 
     public static void main(String[] args) {
