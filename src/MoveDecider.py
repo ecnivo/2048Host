@@ -1,4 +1,4 @@
-def decideMove(inputArray):
+def decideMove(inputArray, changedBool):
 	direction = 0
 	# 0 = NORTH/UP
 	# 1 = EAST/RIGHT
