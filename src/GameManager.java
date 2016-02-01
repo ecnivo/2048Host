@@ -28,6 +28,8 @@ public class GameManager extends JPanel {
 	public GameManager(TwentyFortyEight twfe) {
 		this.twfe = twfe;
 		interpreter = new PythonInterpreter();
+		interpreter.exec("from MoveDecider import *");
+		interpreter.exec("initialize()");
 		setLayout(null);
 		moves = new ArrayList<MoveInfo>();
 		merge = new ArrayList<MoveInfo>();
@@ -52,7 +54,7 @@ public class GameManager extends JPanel {
 					interpreter.set("changedBool", changedBool);
 					PyObject output = interpreter.eval("decideMove(inputArray, changedBool)");
 					int direction = (int) output.__tojava__(int.class);
-					direction = (int) (Math.random() * 4);
+//					direction = (int) (Math.random() * 4);
 
 					changed = false;
 					switch (direction) {
