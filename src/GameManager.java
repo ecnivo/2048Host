@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.python.core.PyBoolean;
@@ -35,13 +36,13 @@ public class GameManager extends JPanel {
 		merge = new ArrayList<MoveInfo>();
 		updateTileSize();
 
-		boolean running = true;
 		Thread loop = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				boolean changed = false;
-				while (running) {
+				long swipes = 0;
+				while (true) {
 					interpreter.exec("from MoveDecider import decideMove");
 					PyList pyGrid = getGrid();
 					PyBoolean changedBool;
@@ -54,7 +55,7 @@ public class GameManager extends JPanel {
 					interpreter.set("changedBool", changedBool);
 					PyObject output = interpreter.eval("decideMove(inputArray, changedBool)");
 					int direction = (int) output.__tojava__(int.class);
-//					direction = (int) (Math.random() * 4);
+					// direction = (int) (Math.random() * 4);
 
 					changed = false;
 					switch (direction) {
@@ -296,8 +297,16 @@ public class GameManager extends JPanel {
 					revalidate();
 					repaint();
 
-					// TODO check if 2048, and check if any moves
-					// possible
+					swipes++;
+
+					for (int row = 0; row < twfe.getGrid().length; row++) {
+						for (int col = 0; col < twfe.getGrid().length; col++) {
+							if (twfe.getGrid()[row][col].getValue() == 2048) {
+								JOptionPane.showConfirmDialog(null, "You completed 2048 in " + swipes + " moves!", "Complete!", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+								return;
+							}
+						}
+					}
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e) {
