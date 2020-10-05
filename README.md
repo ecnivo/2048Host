@@ -1,4 +1,5 @@
 # 2048Host
+\[deprecated\]
 A host for a game of 2048 for RHHS Compsci Club, Python group
 <br><br>
 AIs will download the file MoveDecider.py that will have a method called `decideMove()`, and the AI will return a direction to move in.
